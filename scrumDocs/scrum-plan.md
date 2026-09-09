@@ -1,6 +1,6 @@
 # Plan de Requerimientos — FitArg
 
-_Generado automáticamente el 2026-09-09T14:07:26.213Z — no editar a mano, se sobreescribe en cada publicación._
+_Generado automáticamente el 2026-09-09T14:07:39.067Z — no editar a mano, se sobreescribe en cada publicación._
 
 Orden sugerido de desarrollo (respeta dependencias entre Requerimientos). Cada fila indica de qué Requerimientos depende, si tiene.
 
@@ -15,6 +15,8 @@ Orden sugerido de desarrollo (respeta dependencias entre Requerimientos). Cada f
 | 7 | RF-02 | Creación y edición de rutinas de entrenamiento | HU-03 | — | — | Hacer | Sin asignar | — | — |
 | 8 | RF-03 | Eliminación de rutina con confirmación | HU-03 | — | — | Hacer | Sin asignar | — | — |
 | 9 | RF-01 | Dockerizar la app para el entorno de pruebas | RO-01 | — | — | Hacer | dev-fitarg-3 | — | — |
+| 10 | RF-01 | Configurar servicio de correo SMTP | RO-02 | — | — | Hacer | dev-fitarg-3 | — | — |
+| 11 | RF-01 | Configurar estilos base, modo oscuro y paleta institucional | RO-03 | — | — | Hacer | dev-fitarg-3 | — | — |
 
 ## Detalle
 
@@ -44,3 +46,9 @@ Orden sugerido de desarrollo (respeta dependencias entre Requerimientos). Cada f
 
 ### RF-01 — Dockerizar la app para el entorno de pruebas
 - Estimado: 4h
+
+### RF-01 — Configurar servicio de correo SMTP
+- Estimado: 2h
+
+### RF-01 — Configurar estilos base, modo oscuro y paleta institucional
+- Estimado: 3h
