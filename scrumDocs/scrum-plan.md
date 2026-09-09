@@ -1,12 +1,12 @@
 # Plan de Requerimientos — FitArg
 
-_Generado automáticamente el 2026-09-09T15:44:00.508Z — no editar a mano, se sobreescribe en cada publicación._
+_Generado automáticamente el 2026-09-09T15:56:54.774Z — no editar a mano, se sobreescribe en cada publicación._
 
 Orden sugerido de desarrollo (respeta dependencias entre Requerimientos). Cada fila indica de qué Requerimientos depende, si tiene.
 
 | Orden | Código | Requerimiento | Historia de Usuario | Módulo | Entrega | Estado | Desarrollador | Depende de | Rechazos |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | RF-01 | Dockerizar la app para el entorno de pruebas | RO-01 | — | — | Hecho ✓ dev | dev-fitarg-3 | — | — |
+| 1 | RF-01 | Dockerizar la app para el entorno de pruebas | RO-01 | — | — | Hecho | dev-fitarg-3 | — | — |
 | 2 | RF-01 | Configurar servicio de correo SMTP | RO-02 | — | — | Hecho ✓ dev | dev-fitarg-3 | — | — |
 | 3 | RF-01 | Configurar estilos base, modo oscuro y paleta institucional | RO-03 | — | — | Hecho ✓ dev | dev-fitarg-3 | — | — |
 | 4 | RF-01 | Registro de nuevos usuarios | HU-01 | — | — | Hecho ✓ dev | dev-fitarg-3 | RF-01 | — |
@@ -21,7 +21,7 @@ Orden sugerido de desarrollo (respeta dependencias entre Requerimientos). Cada f
 ## Detalle
 
 ### RF-01 — Dockerizar la app para el entorno de pruebas
-Actualización de Docker y servidor para puerto 8088. PR #12 abierto en GitHub hacia dev.
+Ajuste de mapeo a 8088:8000 con contenedor corriendo internamente en puerto 8000. PR #13 abierto en GitHub hacia dev.
 - Estimado: 4h
 
 ### RF-01 — Configurar servicio de correo SMTP
