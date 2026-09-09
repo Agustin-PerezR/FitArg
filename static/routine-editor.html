@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor de Rutina - FitArg</title>
+  <meta name="description" content="Creador y editor de rutinas de entrenamiento con selección de ejercicios, series, repeticiones y cargas.">
+  <link rel="stylesheet" href="/static/css/variables.css">
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+  <script src="/static/js/theme.js"></script>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container nav-content">
+      <a href="/" class="brand">
+        <span>🏋️ FitArg</span>
+        <span class="brand-sun">☀️</span>
+        <span class="brand-badge">ARG</span>
+      </a>
+      <div class="flex items-center gap-4">
+        <button id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Cambiar modo de color">
+          <span id="theme-icon">🌙</span>
+          <span id="theme-text">Modo Oscuro</span>
+        </button>
+        <a href="/routines.html" class="btn btn-outline">Volver a Mis Rutinas</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Editor de Rutina -->
+  <main class="container" style="padding-top: var(--spacing-8); padding-bottom: var(--spacing-10); max-width: 800px;">
+    <div class="card">
+      <div class="card-header flex justify-between items-center">
+        <div>
+          <h2 id="page-title">Crear Nueva Rutina</h2>
+          <p id="page-desc">Configurá el nombre, descripción y lista de ejercicios con sus series y repeticiones.</p>
+        </div>
+        <span class="badge badge-accent" id="editor-badge">Nueva</span>
+      </div>
+
+      <div id="alert-box" style="display: none;" class="alert"></div>
+
+      <form id="routine-form">
+        <div class="form-group">
+          <label for="name" class="form-label">Nombre de la Rutina</label>
+          <input type="text" id="name" name="name" class="form-control" placeholder="Ej. Torso Pesado - Lunes" required minlength="2">
+        </div>
+
+        <div class="form-group">
+          <label for="description" class="form-label">Descripción / Objetivo</label>
+          <input type="text" id="description" name="description" class="form-control" placeholder="Ej. Enfoque en hipertrofia y fuerza de empuje">
+        </div>
+
+        <div style="margin-top: var(--spacing-6); margin-bottom: var(--spacing-3); display: flex; justify-content: space-between; align-items: center;">
+          <h3>Ejercicios de la Rutina</h3>
+          <button type="button" id="btn-add-exercise" class="btn btn-outline" style="font-size: var(--font-size-xs);">
+            + Agregar Ejercicio
+          </button>
+        </div>
+
+        <!-- Lista Dinámica de Ejercicios -->
+        <div id="exercises-container" class="flex flex-col gap-4">
+          <!-- Filas agregadas dinámicamente -->
+        </div>
+
+        <div class="flex justify-between items-center" style="margin-top: var(--spacing-8); border-top: 1px solid var(--border-color); padding-top: var(--spacing-4);">
+          <a href="/routines.html" class="btn btn-outline">Cancelar</a>
+          <button type="submit" id="btn-submit-routine" class="btn btn-primary" style="padding: var(--spacing-3) var(--spacing-6);">
+            Guardar Rutina
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    const userJson = localStorage.getItem('fitarg_user');
+    if (!userJson) {
+      window.location.href = '/login.html';
+    }
+    const currentUser = JSON.parse(userJson || '{}');
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const routineId = urlParams.get('id');
+
+    const form = document.getElementById('routine-form');
+    const exercisesContainer = document.getElementById('exercises-container');
+    const addExerciseBtn = document.getElementById('btn-add-exercise');
+    const alertBox = document.getElementById('alert-box');
+    const submitBtn = document.getElementById('btn-submit-routine');
+
+    function showAlert(type, message) {
+      alertBox.className = `alert alert-${type}`;
+      alertBox.textContent = message;
+      alertBox.style.display = 'block';
+    }
+
+    function createExerciseRow(exercise = {}) {
+      const row = document.createElement('div');
+      row.className = 'card exercise-row';
+      row.style.padding = 'var(--spacing-4)';
+      row.style.backgroundColor = 'var(--bg-app)';
+
+      row.innerHTML = `
+        <div class="grid grid-cols-3 gap-4" style="margin-bottom: var(--spacing-2);">
+          <div style="grid-column: span 2;">
+            <label class="form-label" style="font-size: var(--font-size-xs);">Nombre del Ejercicio</label>
+            <input type="text" class="form-control ex-name" placeholder="Ej. Press Banca Plano" value="${escapeHtml(exercise.name || '')}" required>
+          </div>
+          <div>
+            <label class="form-label" style="font-size: var(--font-size-xs);">Grupo Muscular</label>
+            <select class="form-control ex-group">
+              <option value="Pecho" ${exercise.group === 'Pecho' ? 'selected' : ''}>Pecho</option>
+              <option value="Espalda" ${exercise.group === 'Espalda' ? 'selected' : ''}>Espalda</option>
+              <option value="Piernas" ${exercise.group === 'Piernas' ? 'selected' : ''}>Piernas</option>
+              <option value="Hombros" ${exercise.group === 'Hombros' ? 'selected' : ''}>Hombros</option>
+              <option value="Brazos" ${exercise.group === 'Brazos' ? 'selected' : ''}>Brazos</option>
+              <option value="Core" ${exercise.group === 'Core' ? 'selected' : ''}>Core</option>
+            </select>
+          </div>
+        </div>
+        <div class="flex justify-between items-center gap-4">
+          <div class="flex gap-4 items-center" style="flex: 1;">
+            <div>
+              <label class="form-label" style="font-size: var(--font-size-xs);">Series</label>
+              <input type="number" class="form-control ex-sets" min="1" max="20" value="${exercise.sets || 4}" style="width: 80px;">
+            </div>
+            <div>
+              <label class="form-label" style="font-size: var(--font-size-xs);">Reps</label>
+              <input type="number" class="form-control ex-reps" min="1" max="100" value="${exercise.reps || 10}" style="width: 80px;">
+            </div>
+            <div>
+              <label class="form-label" style="font-size: var(--font-size-xs);">Carga (kg)</label>
+              <input type="number" class="form-control ex-weight" min="0" step="0.5" value="${exercise.weight || 0}" style="width: 90px;">
+            </div>
+          </div>
+          <button type="button" class="btn btn-outline btn-remove-row" style="color: var(--color-danger); border-color: var(--color-danger); padding: 4px 8px; font-size: var(--font-size-xs);" title="Eliminar ejercicio">
+            ❌ Quitar
+          </button>
+        </div>
+      `;
+
+      row.querySelector('.btn-remove-row').addEventListener('click', () => {
+        if (document.querySelectorAll('.exercise-row').length > 1) {
+          row.remove();
+        } else {
+          showAlert('danger', 'La rutina debe contener al menos un ejercicio.');
+        }
+      });
+
+      exercisesContainer.appendChild(row);
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    addExerciseBtn.addEventListener('click', () => {
+      createExerciseRow();
+    });
+
+    async function loadRoutineIfEditing() {
+      if (routineId) {
+        document.getElementById('page-title').textContent = 'Editar Rutina';
+        document.getElementById('page-desc').textContent = 'Modificá los ejercicios, series o cargas de tu rutina.';
+        document.getElementById('editor-badge').textContent = 'Edición';
+
+        try {
+          const res = await fetch(`/api/routines/detail?id=${routineId}&user_id=${currentUser.id}`);
+          const data = await res.json();
+          if (res.ok && data.success) {
+            const r = data.routine;
+            document.getElementById('name').value = r.name;
+            document.getElementById('description').value = r.description;
+            exercisesContainer.innerHTML = '';
+            if (r.exercises && r.exercises.length > 0) {
+              r.exercises.forEach(ex => createExerciseRow(ex));
+            } else {
+              createExerciseRow();
+            }
+          } else {
+            showAlert('danger', data.error || 'Error al cargar los datos de la rutina.');
+          }
+        } catch (err) {
+          showAlert('danger', 'Error de conexión.');
+        }
+      } else {
+        createExerciseRow();
+      }
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      alertBox.style.display = 'none';
+
+      const name = document.getElementById('name').value.trim();
+      const description = document.getElementById('description').value.trim();
+
+      if (!name || name.length < 2) {
+        return showAlert('danger', 'El nombre de la rutina debe tener al menos 2 caracteres.');
+      }
+
+      const rows = document.querySelectorAll('.exercise-row');
+      const exercises = [];
+      let hasInvalidExercise = false;
+
+      rows.forEach(r => {
+        const exName = r.querySelector('.ex-name').value.trim();
+        const group = r.querySelector('.ex-group').value;
+        const sets = parseInt(r.querySelector('.ex-sets').value) || 3;
+        const reps = parseInt(r.querySelector('.ex-reps').value) || 10;
+        const weight = parseFloat(r.querySelector('.ex-weight').value) || 0;
+
+        if (!exName) {
+          hasInvalidExercise = true;
+        } else {
+          exercises.push({ name: exName, group, sets, reps, weight });
+        }
+      });
+
+      if (hasInvalidExercise) {
+        return showAlert('danger', 'Todos los ejercicios deben tener un nombre asignado.');
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Guardando...';
+
+      try {
+        const payload = {
+          user_id: currentUser.id,
+          name: name,
+          description: description,
+          exercises: exercises
+        };
+        if (routineId) {
+          payload.routine_id = parseInt(routineId);
+        }
+
+        const res = await fetch('/api/routines/save', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        if (res.ok && data.success) {
+          showAlert('success', '¡Rutina guardada con éxito! Redirigiendo...');
+          setTimeout(() => {
+            window.location.href = '/routines.html';
+          }, 1000);
+        } else {
+          showAlert('danger', data.error || 'Error al guardar la rutina.');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Guardar Rutina';
+        }
+      } catch (err) {
+        showAlert('danger', 'Error de conexión con el servidor.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Guardar Rutina';
+      }
+    });
+
+    loadRoutineIfEditing();
+  </script>
+</body>
+</html>
