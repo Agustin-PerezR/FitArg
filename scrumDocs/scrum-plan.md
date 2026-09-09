@@ -1,6 +1,6 @@
 # Plan de Requerimientos — FitArg
 
-_Generado automáticamente el 2026-09-09T14:42:40.272Z — no editar a mano, se sobreescribe en cada publicación._
+_Generado automáticamente el 2026-09-09T14:42:51.306Z — no editar a mano, se sobreescribe en cada publicación._
 
 Orden sugerido de desarrollo (respeta dependencias entre Requerimientos). Cada fila indica de qué Requerimientos depende, si tiene.
 
@@ -12,7 +12,7 @@ Orden sugerido de desarrollo (respeta dependencias entre Requerimientos). Cada f
 | 4 | RF-01 | Registro de nuevos usuarios | HU-01 | — | — | Hecho | dev-fitarg-3 | RF-01 | — |
 | 5 | RF-02 | Visualización y edición de perfil | HU-01 | — | — | Hecho | dev-fitarg-3 | RF-01 | — |
 | 6 | RF-01 | Solicitud de recuperación y envío de token por email | HU-02 | — | — | Hecho | dev-fitarg-3 | RF-01, RF-01 | — |
-| 7 | RF-01 | Listado de rutinas personales | HU-03 | — | — | Hacer | dev-fitarg-3 | RF-01 | — |
+| 7 | RF-01 | Listado de rutinas personales | HU-03 | — | — | Haciendo | dev-fitarg-3 | RF-01 | — |
 | 8 | RF-03 | Baja lógica de cuenta de usuario | HU-01 | — | — | Hecho | dev-fitarg-3 | RF-02 | — |
 | 9 | RF-02 | Restablecimiento de contraseña con token | HU-02 | — | — | Hecho | dev-fitarg-3 | RF-01 | — |
 | 10 | RF-02 | Creación y edición de rutinas de entrenamiento | HU-03 | — | — | Hacer | dev-fitarg-3 | RF-01 | — |
@@ -44,6 +44,7 @@ Implementaci�n de pantalla forgot-password.html y endpoint POST /api/auth/forg
 - Estimado: 3h
 
 ### RF-01 — Listado de rutinas personales
+Inicio de desarrollo: Listado interactivo de rutinas personales de entrenamiento
 - Estimado: 3h
 
 ### RF-03 — Baja lógica de cuenta de usuario
