@@ -1,6 +1,6 @@
 # Grafo de Dependencias -- FitArg
 
-_Generado automaticamente el 2026-09-09T14:10:17.612Z -- no editar a mano, se sobreescribe en cada publicacion._
+_Generado automaticamente el 2026-09-09T14:11:11.486Z -- no editar a mano, se sobreescribe en cada publicacion._
 
 ```mermaid
 graph TD
@@ -27,4 +27,13 @@ graph TD
   subgraph US_1788962859056["RO-03: Configurar estilos base, modo oscuro y paleta institucional"]
     REQ_1788962859059["RF-01: Configurar estilos base, modo oscuro y paleta institucional"]
   end
+  REQ_1788962859059 --> REQ_1788962591125
+  REQ_1788962591125 --> REQ_1788962599160
+  REQ_1788962599160 --> REQ_1788962657708
+  REQ_1788962591125 --> REQ_1788962657905
+  REQ_1788962858900 --> REQ_1788962657905
+  REQ_1788962657905 --> REQ_1788962658008
+  REQ_1788962591125 --> REQ_1788962658133
+  REQ_1788962658133 --> REQ_1788962658244
+  REQ_1788962658133 --> REQ_1788962658342
 ```
