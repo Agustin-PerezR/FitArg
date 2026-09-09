@@ -4,7 +4,7 @@ import os
 import urllib.parse
 from app.db import init_db
 from app.auth import register_user, login_user
-from app.profile import get_user_profile, update_user_profile
+from app.profile import get_user_profile, update_user_profile, deactivate_user_account
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
@@ -48,7 +48,7 @@ class FitArgHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             res = login_user(body.get('email'), body.get('password'))
             return self._send_json(res, res.get('status_code', 200))
 
-        # Rutas de Perfil (POST / PUT)
+        # Rutas de Perfil
         if parsed_path.path in ('/api/profile/update', '/api/profile'):
             res = update_user_profile(
                 body.get('user_id'),
@@ -56,6 +56,10 @@ class FitArgHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                 body.get('current_password'),
                 body.get('new_password')
             )
+            return self._send_json(res, res.get('status_code', 200))
+
+        if parsed_path.path == '/api/profile/deactivate':
+            res = deactivate_user_account(body.get('user_id'), body.get('password'))
             return self._send_json(res, res.get('status_code', 200))
 
         return self._send_json({"success": False, "error": "Ruta no encontrada"}, 404)

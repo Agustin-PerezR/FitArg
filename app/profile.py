@@ -83,3 +83,34 @@ def update_user_profile(user_id: int, name: str, current_password: str = None, n
             "email": user["email"]
         }
     }
+
+def deactivate_user_account(user_id: int, password: str, db_path=None):
+    """Realiza la baja lógica de la cuenta de usuario (is_active = 0)."""
+    if not user_id or not password:
+        return {"success": False, "status_code": 400, "error": "ID de usuario y contraseña de confirmación requeridos."}
+        
+    conn = get_connection(db_path)
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, password_hash, is_active FROM users WHERE id = ?", (user_id,))
+    user = cursor.fetchone()
+    
+    if not user or not user["is_active"]:
+        conn.close()
+        return {"success": False, "status_code": 404, "error": "La cuenta no existe o ya ha sido dada de baja."}
+        
+    if not verify_password(password, user["password_hash"]):
+        conn.close()
+        return {"success": False, "status_code": 401, "error": "Contraseña de confirmación incorrecta."}
+        
+    cursor.execute(
+        "UPDATE users SET is_active = 0, updated_at = CURRENT_TIMESTAMP WHERE id = ?",
+        (user_id,)
+    )
+    conn.commit()
+    conn.close()
+    
+    return {
+        "success": True,
+        "status_code": 200,
+        "message": "Tu cuenta ha sido dada de baja correctamente."
+    }
