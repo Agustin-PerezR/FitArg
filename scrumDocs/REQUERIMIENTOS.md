@@ -1,6 +1,6 @@
 # Requerimientos -- FitArg
 
-_Generado automaticamente el 2026-09-09T14:51:03.353Z -- no editar a mano, se sobreescribe en cada publicacion._
+_Generado automaticamente el 2026-09-09T14:51:29.657Z -- no editar a mano, se sobreescribe en cada publicacion._
 
 ## HU-01: Gestión de Usuarios (ABM de Perfil)
 
