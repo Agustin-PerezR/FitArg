@@ -1,6 +1,6 @@
 # Plan de Requerimientos — FitArg
 
-_Generado automáticamente el 2026-09-09T15:29:00.432Z — no editar a mano, se sobreescribe en cada publicación._
+_Generado automáticamente el 2026-09-09T15:29:01.572Z — no editar a mano, se sobreescribe en cada publicación._
 
 Orden sugerido de desarrollo (respeta dependencias entre Requerimientos). Cada fila indica de qué Requerimientos depende, si tiene.
 
@@ -8,15 +8,15 @@ Orden sugerido de desarrollo (respeta dependencias entre Requerimientos). Cada f
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | RF-01 | Dockerizar la app para el entorno de pruebas | RO-01 | — | — | Hecho ✓ dev | dev-fitarg-3 | — | — |
 | 2 | RF-01 | Configurar servicio de correo SMTP | RO-02 | — | — | Hecho ✓ dev | dev-fitarg-3 | — | — |
-| 3 | RF-01 | Configurar estilos base, modo oscuro y paleta institucional | RO-03 | — | — | Hecho | dev-fitarg-3 | — | — |
-| 4 | RF-01 | Registro de nuevos usuarios | HU-01 | — | — | Hecho | dev-fitarg-3 | RF-01 | — |
-| 5 | RF-02 | Visualización y edición de perfil | HU-01 | — | — | Hecho | dev-fitarg-3 | RF-01 | — |
-| 6 | RF-01 | Solicitud de recuperación y envío de token por email | HU-02 | — | — | Hecho | dev-fitarg-3 | RF-01, RF-01 | — |
-| 7 | RF-01 | Listado de rutinas personales | HU-03 | — | — | Hecho | dev-fitarg-3 | RF-01 | — |
-| 8 | RF-03 | Baja lógica de cuenta de usuario | HU-01 | — | — | Hecho | dev-fitarg-3 | RF-02 | — |
-| 9 | RF-02 | Restablecimiento de contraseña con token | HU-02 | — | — | Hecho | dev-fitarg-3 | RF-01 | — |
-| 10 | RF-02 | Creación y edición de rutinas de entrenamiento | HU-03 | — | — | Hecho | dev-fitarg-3 | RF-01 | — |
-| 11 | RF-03 | Eliminación de rutina con confirmación | HU-03 | — | — | Hecho | dev-fitarg-3 | RF-01 | — |
+| 3 | RF-01 | Configurar estilos base, modo oscuro y paleta institucional | RO-03 | — | — | Hecho ✓ dev | dev-fitarg-3 | — | — |
+| 4 | RF-01 | Registro de nuevos usuarios | HU-01 | — | — | Hecho ✓ dev | dev-fitarg-3 | RF-01 | — |
+| 5 | RF-02 | Visualización y edición de perfil | HU-01 | — | — | Hecho ✓ dev | dev-fitarg-3 | RF-01 | — |
+| 6 | RF-01 | Solicitud de recuperación y envío de token por email | HU-02 | — | — | Hecho ✓ dev | dev-fitarg-3 | RF-01, RF-01 | — |
+| 7 | RF-01 | Listado de rutinas personales | HU-03 | — | — | Hecho ✓ dev | dev-fitarg-3 | RF-01 | — |
+| 8 | RF-03 | Baja lógica de cuenta de usuario | HU-01 | — | — | Hecho ✓ dev | dev-fitarg-3 | RF-02 | — |
+| 9 | RF-02 | Restablecimiento de contraseña con token | HU-02 | — | — | Hecho ✓ dev | dev-fitarg-3 | RF-01 | — |
+| 10 | RF-02 | Creación y edición de rutinas de entrenamiento | HU-03 | — | — | Hecho ✓ dev | dev-fitarg-3 | RF-01 | — |
+| 11 | RF-03 | Eliminación de rutina con confirmación | HU-03 | — | — | Hecho ✓ dev | dev-fitarg-3 | RF-01 | — |
 
 ## Detalle
 
