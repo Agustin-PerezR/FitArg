@@ -5,8 +5,9 @@ services:
       dockerfile: Dockerfile
     container_name: fitarg_app
     ports:
-      - "8000:8000"
+      - "8088:8088"
     environment:
+      - PORT=8088
       - FITARG_DB_PATH=/app/data/fitarg.db
       - SMTP_HOST=smtp.gmail.com
       - SMTP_PORT=587

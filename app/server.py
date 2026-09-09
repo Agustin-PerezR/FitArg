@@ -148,7 +148,9 @@ class FitArgHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
 
         return super().do_GET()
 
-def run_server(port=8000):
+def run_server(port=None):
+    if port is None:
+        port = int(os.environ.get("PORT", 8088))
     init_db()
     server_address = ('', port)
     httpd = http.server.HTTPServer(server_address, FitArgHTTPRequestHandler)
