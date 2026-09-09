@@ -1,6 +1,10 @@
 import unittest
 import os
+import sys
 import tempfile
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from app.db import init_db
 from app.auth import register_user, verify_password
 from app.profile import get_user_profile, update_user_profile
