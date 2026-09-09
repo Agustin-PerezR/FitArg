@@ -1,6 +1,6 @@
 # Grafo de Dependencias -- FitArg
 
-_Generado automaticamente el 2026-09-09T14:04:21.191Z -- no editar a mano, se sobreescribe en cada publicacion._
+_Generado automaticamente el 2026-09-09T14:07:29.773Z -- no editar a mano, se sobreescribe en cada publicacion._
 
 ```mermaid
 graph TD
@@ -17,5 +17,8 @@ graph TD
     REQ_1788962658133["RF-01: Listado de rutinas personales"]
     REQ_1788962658244["RF-02: Creación y edición de rutinas de entrenamiento"]
     REQ_1788962658342["RF-03: Eliminación de rutina con confirmación"]
+  end
+  subgraph US_1788962846177["RO-01: Dockerizar la app para el entorno de pruebas"]
+    REQ_1788962846188["RF-01: Dockerizar la app para el entorno de pruebas"]
   end
 ```
