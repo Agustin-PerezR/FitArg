@@ -1,6 +1,6 @@
 # Plan de Requerimientos — FitArg
 
-_Generado automáticamente el 2026-09-09T14:40:50.134Z — no editar a mano, se sobreescribe en cada publicación._
+_Generado automáticamente el 2026-09-09T14:42:40.272Z — no editar a mano, se sobreescribe en cada publicación._
 
 Orden sugerido de desarrollo (respeta dependencias entre Requerimientos). Cada fila indica de qué Requerimientos depende, si tiene.
 
@@ -14,7 +14,7 @@ Orden sugerido de desarrollo (respeta dependencias entre Requerimientos). Cada f
 | 6 | RF-01 | Solicitud de recuperación y envío de token por email | HU-02 | — | — | Hecho | dev-fitarg-3 | RF-01, RF-01 | — |
 | 7 | RF-01 | Listado de rutinas personales | HU-03 | — | — | Hacer | dev-fitarg-3 | RF-01 | — |
 | 8 | RF-03 | Baja lógica de cuenta de usuario | HU-01 | — | — | Hecho | dev-fitarg-3 | RF-02 | — |
-| 9 | RF-02 | Restablecimiento de contraseña con token | HU-02 | — | — | Haciendo | dev-fitarg-3 | RF-01 | — |
+| 9 | RF-02 | Restablecimiento de contraseña con token | HU-02 | — | — | Hecho | dev-fitarg-3 | RF-01 | — |
 | 10 | RF-02 | Creación y edición de rutinas de entrenamiento | HU-03 | — | — | Hacer | dev-fitarg-3 | RF-01 | — |
 | 11 | RF-03 | Eliminación de rutina con confirmación | HU-03 | — | — | Hacer | dev-fitarg-3 | RF-01 | — |
 
@@ -51,7 +51,7 @@ Implementaci�n de pantalla y endpoint POST /api/profile/deactivate para baja l
 - Estimado: 2h
 
 ### RF-02 — Restablecimiento de contraseña con token
-Inicio de desarrollo: Restablecimiento de contrase�a con token de validaci�n
+Implementaci�n de pantalla reset-password.html y endpoint POST /api/auth/reset-password con validaci�n de tokens �nicos no reutilizables y suite de tests unitarios.
 - Estimado: 3h
 
 ### RF-02 — Creación y edición de rutinas de entrenamiento
