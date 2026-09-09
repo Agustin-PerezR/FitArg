@@ -1,6 +1,6 @@
 # Plan de Requerimientos — FitArg
 
-_Generado automáticamente el 2026-09-09T14:44:57.376Z — no editar a mano, se sobreescribe en cada publicación._
+_Generado automáticamente el 2026-09-09T14:47:13.741Z — no editar a mano, se sobreescribe en cada publicación._
 
 Orden sugerido de desarrollo (respeta dependencias entre Requerimientos). Cada fila indica de qué Requerimientos depende, si tiene.
 
@@ -15,7 +15,7 @@ Orden sugerido de desarrollo (respeta dependencias entre Requerimientos). Cada f
 | 7 | RF-01 | Listado de rutinas personales | HU-03 | — | — | Hecho | dev-fitarg-3 | RF-01 | — |
 | 8 | RF-03 | Baja lógica de cuenta de usuario | HU-01 | — | — | Hecho | dev-fitarg-3 | RF-02 | — |
 | 9 | RF-02 | Restablecimiento de contraseña con token | HU-02 | — | — | Hecho | dev-fitarg-3 | RF-01 | — |
-| 10 | RF-02 | Creación y edición de rutinas de entrenamiento | HU-03 | — | — | Haciendo | dev-fitarg-3 | RF-01 | — |
+| 10 | RF-02 | Creación y edición de rutinas de entrenamiento | HU-03 | — | — | Hecho | dev-fitarg-3 | RF-01 | — |
 | 11 | RF-03 | Eliminación de rutina con confirmación | HU-03 | — | — | Hacer | dev-fitarg-3 | RF-01 | — |
 
 ## Detalle
@@ -56,7 +56,7 @@ Implementaci�n de pantalla reset-password.html y endpoint POST /api/auth/reset
 - Estimado: 3h
 
 ### RF-02 — Creación y edición de rutinas de entrenamiento
-Inicio de desarrollo: Creador y editor din�mico de rutinas con ejercicios, series, repeticiones y cargas
+Implementaci�n de editor interactivo routine-editor.html y endpoint POST /api/routines/save para alta y edici�n de rutinas completas, verificado con tests unitarios.
 - Estimado: 5h
 
 ### RF-03 — Eliminación de rutina con confirmación
