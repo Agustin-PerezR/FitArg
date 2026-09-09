@@ -1,6 +1,6 @@
 # Requerimientos -- FitArg
 
-_Generado automaticamente el 2026-09-09T14:07:28.579Z -- no editar a mano, se sobreescribe en cada publicacion._
+_Generado automaticamente el 2026-09-09T14:07:41.219Z -- no editar a mano, se sobreescribe en cada publicacion._
 
 ## HU-01: Gestión de Usuarios (ABM de Perfil)
 
@@ -45,3 +45,15 @@ Acción de borrado de una rutina personal con modal previo de confirmación para
 ### RF-01: Dockerizar la app para el entorno de pruebas (Funcional)
 
 Crear el Dockerfile y configuración de docker-compose para empaquetar la aplicación y desplegarla en la VM existente de pruebas para QA.
+
+## RO-02: Configurar servicio de correo SMTP
+
+### RF-01: Configurar servicio de correo SMTP (Funcional)
+
+Aprovisionamiento de credenciales SMTP y variables de entorno para habilitar el servicio de correo necesario para el token de recuperación de contraseña.
+
+## RO-03: Configurar estilos base, modo oscuro y paleta institucional
+
+### RF-01: Configurar estilos base, modo oscuro y paleta institucional (Funcional)
+
+Configuración base de estilos CSS/tokens para soporte de modo oscuro y esquema cromático celeste y blanco institucional según style.md.
