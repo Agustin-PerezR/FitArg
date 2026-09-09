@@ -1,6 +1,6 @@
 # Plan de Requerimientos — FitArg
 
-_Generado automáticamente el 2026-09-09T14:47:25.538Z — no editar a mano, se sobreescribe en cada publicación._
+_Generado automáticamente el 2026-09-09T14:51:00.797Z — no editar a mano, se sobreescribe en cada publicación._
 
 Orden sugerido de desarrollo (respeta dependencias entre Requerimientos). Cada fila indica de qué Requerimientos depende, si tiene.
 
@@ -16,7 +16,7 @@ Orden sugerido de desarrollo (respeta dependencias entre Requerimientos). Cada f
 | 8 | RF-03 | Baja lógica de cuenta de usuario | HU-01 | — | — | Hecho | dev-fitarg-3 | RF-02 | — |
 | 9 | RF-02 | Restablecimiento de contraseña con token | HU-02 | — | — | Hecho | dev-fitarg-3 | RF-01 | — |
 | 10 | RF-02 | Creación y edición de rutinas de entrenamiento | HU-03 | — | — | Hecho | dev-fitarg-3 | RF-01 | — |
-| 11 | RF-03 | Eliminación de rutina con confirmación | HU-03 | — | — | Haciendo | dev-fitarg-3 | RF-01 | — |
+| 11 | RF-03 | Eliminación de rutina con confirmación | HU-03 | — | — | Hecho | dev-fitarg-3 | RF-01 | — |
 
 ## Detalle
 
@@ -60,5 +60,5 @@ Implementaci�n de editor interactivo routine-editor.html y endpoint POST /api/
 - Estimado: 5h
 
 ### RF-03 — Eliminación de rutina con confirmación
-Inicio de desarrollo: Eliminaci�n de rutina personal con di�logo de confirmaci�n y validaci�n de propiedad
+Implementaci�n de di�logo de confirmaci�n de borrado en UI y endpoint POST /api/routines/delete con validaci�n de propiedad de la rutina, verificado con tests unitarios.
 - Estimado: 2h
