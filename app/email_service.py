@@ -3,6 +3,7 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+# Configuración SMTP por variables de entorno
 SMTP_HOST = os.environ.get('SMTP_HOST', 'smtp.gmail.com')
 SMTP_PORT = int(os.environ.get('SMTP_PORT', '587'))
 SMTP_USER = os.environ.get('SMTP_USER', 'notificaciones@fitarg.com.ar')
@@ -10,9 +11,11 @@ SMTP_PASSWORD = os.environ.get('SMTP_PASSWORD', '')
 SMTP_FROM = os.environ.get('SMTP_FROM', 'FitArg <notificaciones@fitarg.com.ar>')
 SMTP_USE_TLS = os.environ.get('SMTP_USE_TLS', 'true').lower() in ('true', '1', 'yes')
 
+# Cola en memoria para testing y verificación de envíos
 SENT_EMAILS = []
 
 def get_smtp_config():
+    """Devuelve la configuración actual de SMTP."""
     return {
         "host": SMTP_HOST,
         "port": SMTP_PORT,
@@ -23,11 +26,13 @@ def get_smtp_config():
     }
 
 def send_email(to_email: str, subject: str, html_body: str, text_body: str = None):
+    """Envía un correo electrónico vía SMTP o almacena en la cola si está en modo desarrollo/pruebas."""
     to_email = (to_email or '').strip()
     if not to_email:
         return {"success": False, "error": "Destinatario no especificado."}
 
     text_body = text_body or html_body
+
     email_record = {
         "to": to_email,
         "subject": subject,
@@ -37,6 +42,7 @@ def send_email(to_email: str, subject: str, html_body: str, text_body: str = Non
     }
     SENT_EMAILS.append(email_record)
 
+    # Si hay credenciales reales configuradas, realizar el envío por socket SMTP
     if SMTP_PASSWORD and SMTP_HOST:
         try:
             msg = MIMEMultipart('alternative')
@@ -59,9 +65,14 @@ def send_email(to_email: str, subject: str, html_body: str, text_body: str = Non
         except Exception as e:
             return {"success": False, "mode": "smtp_error", "error": f"Fallo al conectar con servidor SMTP: {str(e)}"}
     
-    return {"success": True, "mode": "dev_queue", "message": "Email encolado exitosamente."}
+    return {
+        "success": True,
+        "mode": "dev_queue",
+        "message": "Email encolado exitosamente (modo desarrollo/pruebas)."
+    }
 
 def send_password_reset_email(to_email: str, user_name: str, reset_token: str, base_url: str = 'http://localhost:8000'):
+    """Genera y envía el correo con el enlace y token de recuperación de contraseña."""
     reset_url = f"{base_url}/reset-password.html?token={reset_token}"
     subject = "Recuperación de Contraseña - FitArg 🇦🇷"
     
@@ -78,10 +89,14 @@ def send_password_reset_email(to_email: str, user_name: str, reset_token: str, b
         </div>
         <p style="color: #64748b; font-size: 13px;">O copiá y pegá este enlace en tu navegador:</p>
         <p style="color: #0284c7; font-size: 12px; word-break: break-all;">{reset_url}</p>
+        <p style="color: #94a3b8; font-size: 12px; margin-top: 24px; border-top: 1px solid #e2e8f0; padding-top: 16px;">
+          Este enlace expirará en 1 hora. Si no solicitaste este cambio, podés ignorar este correo.
+        </p>
       </div>
     </div>
     """
-    text_body = f"Hola {user_name},\n\nPara restablecer tu contraseña ingresá a: {reset_url}\n\nToken: {reset_token}"
+    
+    text_body = f"Hola {user_name},\n\nPara restablecer tu contraseña en FitArg ingresá a: {reset_url}\n\nToken: {reset_token}"
     return send_email(to_email, subject, html_body, text_body)
 
 def get_sent_emails():
