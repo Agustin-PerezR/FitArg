@@ -1,0 +1,106 @@
+/* ==========================================================================
+   FitArg - Variables de Diseño y Paleta Institucional (Argentina + Modo Oscuro)
+   ========================================================================== */
+
+:root {
+  /* Paleta Institucional Argentina (Modo Claro) */
+  --color-primary: #74acdf;             /* Celeste bandera argentina */
+  --color-primary-dark: #4a90e2;        /* Celeste profundo para hover/contrastes */
+  --color-primary-light: #e8f4fd;       /* Celeste sutil para fondos/hover */
+  --color-accent: #f6b40e;              /* Dorado Sol de Mayo */
+  --color-accent-hover: #d99b00;        /* Dorado intenso */
+
+  /* Neutros y Superficies - Modo Claro */
+  --bg-app: #f4f7fb;                    /* Fondo principal */
+  --bg-surface: #ffffff;                /* Superficie de tarjetas/contenedores */
+  --bg-surface-elevated: #ffffff;       /* Modales y dropdowns */
+  --bg-input: #ffffff;                  /* Fondo de inputs */
+  --border-color: #d0dbe7;              /* Bordes sutiles */
+  --border-focus: #74acdf;              /* Borde en foco */
+
+  /* Textos - Modo Claro */
+  --text-main: #1e293b;                 /* Texto principal de alto contraste */
+  --text-muted: #64748b;                /* Texto secundario/descriptivo */
+  --text-inverse: #ffffff;              /* Texto sobre fondos oscuros/primarios */
+
+  /* Estados y Feedback */
+  --color-success: #10b981;
+  --color-success-bg: #ecfdf5;
+  --color-warning: #f59e0b;
+  --color-warning-bg: #fffbeb;
+  --color-danger: #ef4444;
+  --color-danger-bg: #fef2f2;
+  --color-info: #0284c7;
+  --color-info-bg: #f0f9ff;
+
+  /* Tipografía */
+  --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+
+  /* Espaciados */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+
+  /* Radios de Borde */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* Sombras y Elevaciones */
+  --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
+
+  /* Transiciones */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   Modo Oscuro (Activado por data-theme="dark" o clase .dark)
+   ========================================================================== */
+[data-theme="dark"] {
+  /* Paleta Institucional Adaptada a Modo Oscuro */
+  --color-primary: #5ba2e6;             /* Celeste brillante para contraste en oscuro */
+  --color-primary-dark: #3b82f6;
+  --color-primary-light: #172554;
+  --color-accent: #fbbf24;              /* Dorado Sol de Mayo adaptado */
+  --color-accent-hover: #f59e0b;
+
+  /* Neutros y Superficies - Modo Oscuro */
+  --bg-app: #0b1329;                    /* Azul noche profundo */
+  --bg-surface: #132247;                /* Superficie de tarjetas */
+  --bg-surface-elevated: #1a2c5b;       /* Modales y dropdowns */
+  --bg-input: #0f1c3d;                  /* Fondo de inputs */
+  --border-color: #243b73;              /* Bordes en oscuro */
+  --border-focus: #5ba2e6;
+
+  /* Textos - Modo Oscuro */
+  --text-main: #f8fafc;                 /* Blanco nieve */
+  --text-muted: #94a3b8;                /* Gris azulado claro */
+  --text-inverse: #0b1329;
+
+  /* Feedback Adaptado */
+  --color-success-bg: #064e3b;
+  --color-warning-bg: #78350f;
+  --color-danger-bg: #7f1d1d;
+  --color-info-bg: #0c4a6e;
+
+  /* Sombras */
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+}

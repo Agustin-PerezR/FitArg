@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitArg - Tu Plataforma de Entrenamiento</title>
+  <meta name="description" content="FitArg - Gestión de rutinas de entrenamiento con paleta celeste y blanca y soporte de modo oscuro.">
+  <link rel="stylesheet" href="/static/css/variables.css">
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+  <script src="/static/js/theme.js"></script>
+</head>
+<body>
+  <!-- Navegación Principal -->
+  <nav class="navbar" id="main-nav">
+    <div class="container nav-content">
+      <a href="/" class="brand" id="nav-brand">
+        <span>🏋️ FitArg</span>
+        <span class="brand-sun">☀️</span>
+        <span class="brand-badge">ARG</span>
+      </a>
+      <div class="flex items-center gap-4">
+        <button id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Cambiar modo de color">
+          <span id="theme-icon">🌙</span>
+          <span id="theme-text">Modo Oscuro</span>
+        </button>
+        <div id="nav-auth-buttons" class="flex gap-2">
+          <a href="/login.html" id="btn-nav-login" class="btn btn-outline">Ingresar</a>
+          <a href="/register.html" id="btn-nav-register" class="btn btn-primary">Registrarse</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero y Showcase -->
+  <main class="container" style="padding-top: var(--spacing-8); padding-bottom: var(--spacing-8);">
+    <section class="card" style="text-align: center; margin-bottom: var(--spacing-8); background: linear-gradient(180deg, var(--bg-surface) 0%, var(--color-primary-light) 100%);">
+      <span class="badge badge-primary" style="margin-bottom: var(--spacing-3);">🇦🇷 Paleta Institucional Argentina</span>
+      <h1 style="margin-bottom: var(--spacing-3);">Entrená con Pasión en FitArg</h1>
+      <p style="max-width: 600px; margin: 0 auto var(--spacing-6) auto;">
+        Plataforma inteligente de gestión de rutinas, seguimiento de ejercicios y control de progresos.
+      </p>
+      <div class="flex justify-center gap-4">
+        <a href="/register.html" class="btn btn-primary" style="padding: var(--spacing-3) var(--spacing-6); font-size: var(--font-size-base);">Comenzar Ahora</a>
+        <a href="#paleta" class="btn btn-outline" style="padding: var(--spacing-3) var(--spacing-6); font-size: var(--font-size-base);">Ver Paleta de Diseño</a>
+      </div>
+    </section>
+
+    <!-- Demostración de Tokens y Modo Oscuro -->
+    <section id="paleta" class="grid grid-cols-3 gap-6">
+      <div class="card">
+        <div class="card-header">
+          <h3>🇦🇷 Identidad Argentina</h3>
+        </div>
+        <p>Colores celeste bandera, blanco puro y dorado sol de mayo integrados en variables CSS adaptativas.</p>
+        <div style="margin-top: var(--spacing-4); display: flex; gap: var(--spacing-2);">
+          <div style="width: 36px; height: 36px; background-color: var(--color-primary); border-radius: var(--radius-sm);" title="Celeste Primario"></div>
+          <div style="width: 36px; height: 36px; background-color: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-sm);" title="Blanco Institucional"></div>
+          <div style="width: 36px; height: 36px; background-color: var(--color-accent); border-radius: var(--radius-sm);" title="Dorado Sol"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>🌙 Modo Oscuro Fluido</h3>
+        </div>
+        <p>Cambio instantáneo de tema claro a oscuro con persistencia en almacenamiento local y sin destellos.</p>
+        <div style="margin-top: var(--spacing-4);">
+          <span class="badge badge-accent">Auto-detección SO</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>🧩 Componentes Reutilizables</h3>
+        </div>
+        <p>Botones con efectos hover, tarjetas responsivas, alertas y campos de entrada estandarizados.</p>
+        <div style="margin-top: var(--spacing-4);">
+          <span class="badge badge-primary">Estilo Unificado</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer style="border-top: 1px solid var(--border-color); padding: var(--spacing-6) 0; text-align: center; color: var(--text-muted); font-size: var(--font-size-sm);">
+    <div class="container">
+      <p>© 2026 FitArg - Hecho con 💙🤍 y pasión deportiva argentina.</p>
+    </div>
+  </footer>
+</body>
+</html>
