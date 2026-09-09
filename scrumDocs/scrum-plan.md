@@ -1,6 +1,6 @@
 # Plan de Requerimientos — FitArg
 
-_Generado automáticamente el 2026-09-09T14:26:42.307Z — no editar a mano, se sobreescribe en cada publicación._
+_Generado automáticamente el 2026-09-09T14:29:45.558Z — no editar a mano, se sobreescribe en cada publicación._
 
 Orden sugerido de desarrollo (respeta dependencias entre Requerimientos). Cada fila indica de qué Requerimientos depende, si tiene.
 
@@ -10,7 +10,7 @@ Orden sugerido de desarrollo (respeta dependencias entre Requerimientos). Cada f
 | 2 | RF-01 | Configurar servicio de correo SMTP | RO-02 | — | — | Hacer | dev-fitarg-3 | — | — |
 | 3 | RF-01 | Configurar estilos base, modo oscuro y paleta institucional | RO-03 | — | — | Hecho | dev-fitarg-3 | — | — |
 | 4 | RF-01 | Registro de nuevos usuarios | HU-01 | — | — | Hecho | dev-fitarg-3 | RF-01 | — |
-| 5 | RF-02 | Visualización y edición de perfil | HU-01 | — | — | Haciendo | dev-fitarg-3 | RF-01 | — |
+| 5 | RF-02 | Visualización y edición de perfil | HU-01 | — | — | Hecho | dev-fitarg-3 | RF-01 | — |
 | 6 | RF-01 | Solicitud de recuperación y envío de token por email | HU-02 | — | — | Hacer | dev-fitarg-3 | RF-01, RF-01 | — |
 | 7 | RF-01 | Listado de rutinas personales | HU-03 | — | — | Hacer | dev-fitarg-3 | RF-01 | — |
 | 8 | RF-03 | Baja lógica de cuenta de usuario | HU-01 | — | — | Hacer | dev-fitarg-3 | RF-02 | — |
@@ -35,7 +35,7 @@ Implementaci�n de formulario de registro y endpoint POST /api/auth/register co
 - Estimado: 4h
 
 ### RF-02 — Visualización y edición de perfil
-Inicio de desarrollo: Visualizaci�n y edici�n de perfil de usuario
+Implementaci�n de pantalla de perfil, endpoint GET /api/profile y actualizaci�n con cambio seguro de contrase�a, cubierto con tests unitarios.
 - Estimado: 3h
 
 ### RF-01 — Solicitud de recuperación y envío de token por email
