@@ -16,9 +16,9 @@ class TestDockerConfiguration(unittest.TestCase):
 
         self.assertIn('FROM python:3.12-slim', content)
         self.assertIn('WORKDIR /app', content)
-        self.assertIn('EXPOSE 8088', content)
+        self.assertIn('EXPOSE 8000', content)
         self.assertIn('HEALTHCHECK', content)
-        self.assertIn('localhost:8088', content)
+        self.assertIn('localhost:8000', content)
         self.assertIn('CMD ["python", "-m", "app.server"]', content)
 
     def test_docker_compose_contents(self):
@@ -29,7 +29,7 @@ class TestDockerConfiguration(unittest.TestCase):
 
         self.assertIn('services:', content)
         self.assertIn('fitarg-web:', content)
-        self.assertIn('8088:8088', content)
+        self.assertIn('8088:8000', content)
         self.assertIn('fitarg_data:/app/data', content)
 
     def test_dockerignore_exists(self):
