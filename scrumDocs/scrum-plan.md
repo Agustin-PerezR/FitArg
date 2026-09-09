@@ -1,10 +1,14 @@
 # Plan de Requerimientos — FitArg
 
-_Generado automáticamente el 2026-09-09T13:40:00.837Z — no editar a mano, se sobreescribe en cada publicación._
+_Generado automáticamente el 2026-09-09T14:03:11.151Z — no editar a mano, se sobreescribe en cada publicación._
 
 Orden sugerido de desarrollo (respeta dependencias entre Requerimientos). Cada fila indica de qué Requerimientos depende, si tiene.
 
 | Orden | Código | Requerimiento | Historia de Usuario | Módulo | Entrega | Estado | Desarrollador | Depende de | Rechazos |
 |---|---|---|---|---|---|---|---|---|---|
+| 1 | RF-01 | Registro de nuevos usuarios | HU-01 | — | — | Hacer | Sin asignar | — | — |
 
 ## Detalle
+
+### RF-01 — Registro de nuevos usuarios
+- Estimado: 0h
