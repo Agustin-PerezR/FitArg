@@ -1,6 +1,6 @@
 # Requerimientos -- FitArg
 
-_Generado automaticamente el 2026-09-09T14:04:20.131Z -- no editar a mano, se sobreescribe en cada publicacion._
+_Generado automaticamente el 2026-09-09T14:07:28.579Z -- no editar a mano, se sobreescribe en cada publicacion._
 
 ## HU-01: Gestión de Usuarios (ABM de Perfil)
 
@@ -39,3 +39,9 @@ Formulario para dar de alta y editar rutinas especificando nombre, selección de
 ### RF-03: Eliminación de rutina con confirmación (Funcional)
 
 Acción de borrado de una rutina personal con modal previo de confirmación para evitar pérdidas accidentales.
+
+## RO-01: Dockerizar la app para el entorno de pruebas
+
+### RF-01: Dockerizar la app para el entorno de pruebas (Funcional)
+
+Crear el Dockerfile y configuración de docker-compose para empaquetar la aplicación y desplegarla en la VM existente de pruebas para QA.
