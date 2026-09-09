@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Perfil - FitArg</title>
+  <meta name="description" content="Visualizá y actualizá tus datos personales de cuenta en FitArg.">
+  <link rel="stylesheet" href="/static/css/variables.css">
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+  <script src="/static/js/theme.js"></script>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container nav-content">
+      <a href="/" class="brand">
+        <span>🏋️ FitArg</span>
+        <span class="brand-sun">☀️</span>
+        <span class="brand-badge">ARG</span>
+      </a>
+      <div class="flex items-center gap-4">
+        <button id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Cambiar modo de color">
+          <span id="theme-icon">🌙</span>
+          <span id="theme-text">Modo Oscuro</span>
+        </button>
+        <a href="/routines.html" class="btn btn-outline">Mis Rutinas</a>
+        <button id="btn-logout" class="btn btn-outline">Cerrar Sesión</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contenido de Perfil -->
+  <main class="container" style="padding-top: var(--spacing-8); padding-bottom: var(--spacing-8); max-width: 700px;">
+    <div class="card">
+      <div class="card-header flex justify-between items-center">
+        <div>
+          <h2>Mi Perfil de Usuario</h2>
+          <p>Gestioná tus datos personales y seguridad</p>
+        </div>
+        <span class="badge badge-primary" id="badge-status">Activo</span>
+      </div>
+
+      <div id="alert-box" style="display: none;" class="alert"></div>
+
+      <!-- Formulario de Edición de Perfil -->
+      <form id="profile-form">
+        <div class="form-group">
+          <label for="email" class="form-label">Correo electrónico</label>
+          <input type="email" id="email" class="form-control" disabled style="opacity: 0.7; cursor: not-allowed;">
+          <small style="color: var(--text-muted); font-size: var(--font-size-xs);">El correo no puede modificarse por seguridad.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="name" class="form-label">Nombre completo</label>
+          <input type="text" id="name" name="name" class="form-control" required minlength="2">
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid var(--border-color); margin: var(--spacing-6) 0;">
+
+        <h3>Seguridad (Cambiar Contraseña)</h3>
+        <p style="margin-bottom: var(--spacing-3); font-size: var(--font-size-sm);">Dejá estos campos vacíos si no deseás cambiar tu contraseña.</p>
+
+        <div class="form-group">
+          <label for="current-password" class="form-label">Contraseña actual</label>
+          <input type="password" id="current-password" class="form-control" placeholder="Tu contraseña actual">
+        </div>
+
+        <div class="form-group">
+          <label for="new-password" class="form-label">Nueva contraseña</label>
+          <input type="password" id="new-password" class="form-control" placeholder="Mínimo 6 caracteres (letras y números)">
+        </div>
+
+        <div class="flex justify-between items-center" style="margin-top: var(--spacing-6);">
+          <button type="submit" id="btn-save-profile" class="btn btn-primary" style="padding: var(--spacing-3) var(--spacing-6);">
+            Guardar Cambios
+          </button>
+          <a href="/delete-account.html" class="btn btn-danger" style="background-color: transparent; color: var(--color-danger); border-color: var(--color-danger);">
+            Dar de baja cuenta
+          </a>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    const userJson = localStorage.getItem('fitarg_user');
+    if (!userJson) {
+      window.location.href = '/login.html';
+    }
+
+    const currentUser = JSON.parse(userJson || '{}');
+    const alertBox = document.getElementById('alert-box');
+    const form = document.getElementById('profile-form');
+    const saveBtn = document.getElementById('btn-save-profile');
+    const logoutBtn = document.getElementById('btn-logout');
+
+    function showAlert(type, message) {
+      alertBox.className = `alert alert-${type}`;
+      alertBox.textContent = message;
+      alertBox.style.display = 'block';
+    }
+
+    async function loadProfile() {
+      try {
+        const res = await fetch(`/api/profile?user_id=${currentUser.id}`);
+        const data = await res.json();
+        if (res.ok && data.success) {
+          document.getElementById('email').value = data.user.email;
+          document.getElementById('name').value = data.user.name;
+        } else {
+          showAlert('danger', data.error || 'Error al cargar perfil.');
+        }
+      } catch (err) {
+        showAlert('danger', 'Error de comunicación con el servidor.');
+      }
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      alertBox.style.display = 'none';
+
+      const name = document.getElementById('name').value.trim();
+      const currentPassword = document.getElementById('current-password').value;
+      const newPassword = document.getElementById('new-password').value;
+
+      if (!name || name.length < 2) {
+        return showAlert('danger', 'El nombre debe tener al menos 2 caracteres.');
+      }
+
+      saveBtn.disabled = true;
+      saveBtn.textContent = 'Guardando...';
+
+      try {
+        const payload = {
+          user_id: currentUser.id,
+          name: name
+        };
+        if (currentPassword || newPassword) {
+          payload.current_password = currentPassword;
+          payload.new_password = newPassword;
+        }
+
+        const res = await fetch('/api/profile/update', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        if (res.ok && data.success) {
+          showAlert('success', '¡Perfil actualizado con éxito!');
+          currentUser.name = name;
+          localStorage.setItem('fitarg_user', JSON.stringify(currentUser));
+          document.getElementById('current-password').value = '';
+          document.getElementById('new-password').value = '';
+        } else {
+          showAlert('danger', data.error || 'No se pudo actualizar el perfil.');
+        }
+      } catch (err) {
+        showAlert('danger', 'Error de conexión.');
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.textContent = 'Guardar Cambios';
+      }
+    });
+
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('fitarg_user');
+      localStorage.removeItem('fitarg_token');
+      window.location.href = '/login.html';
+    });
+
+    loadProfile();
+  </script>
+</body>
+</html>
