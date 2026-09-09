@@ -1,6 +1,6 @@
 # Grafo de Dependencias -- FitArg
 
-_Generado automaticamente el 2026-09-09T14:07:29.773Z -- no editar a mano, se sobreescribe en cada publicacion._
+_Generado automaticamente el 2026-09-09T14:07:42.195Z -- no editar a mano, se sobreescribe en cada publicacion._
 
 ```mermaid
 graph TD
@@ -20,5 +20,11 @@ graph TD
   end
   subgraph US_1788962846177["RO-01: Dockerizar la app para el entorno de pruebas"]
     REQ_1788962846188["RF-01: Dockerizar la app para el entorno de pruebas"]
+  end
+  subgraph US_1788962858890["RO-02: Configurar servicio de correo SMTP"]
+    REQ_1788962858900["RF-01: Configurar servicio de correo SMTP"]
+  end
+  subgraph US_1788962859056["RO-03: Configurar estilos base, modo oscuro y paleta institucional"]
+    REQ_1788962859059["RF-01: Configurar estilos base, modo oscuro y paleta institucional"]
   end
 ```
