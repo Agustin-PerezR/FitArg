@@ -1,6 +1,6 @@
 # Plan de Requerimientos — FitArg
 
-_Generado automáticamente el 2026-09-09T15:29:01.572Z — no editar a mano, se sobreescribe en cada publicación._
+_Generado automáticamente el 2026-09-09T15:38:27.858Z — no editar a mano, se sobreescribe en cada publicación._
 
 Orden sugerido de desarrollo (respeta dependencias entre Requerimientos). Cada fila indica de qué Requerimientos depende, si tiene.
 
@@ -21,7 +21,7 @@ Orden sugerido de desarrollo (respeta dependencias entre Requerimientos). Cada f
 ## Detalle
 
 ### RF-01 — Dockerizar la app para el entorno de pruebas
-Creaci�n de Dockerfile con python:3.12-slim, configuraci�n de docker-compose con volumen persistente, variables de entorno y healthcheck para entorno de QA.
+Configuración de Dockerfile y docker-compose actualizada para operar en el puerto 8088 con healthcheck y variable de entorno PORT=8088. PR #1 actualizado en GitHub.
 - Estimado: 4h
 
 ### RF-01 — Configurar servicio de correo SMTP
