@@ -1,0 +1,1 @@
+Tiene que haber ABM de Usuarios, las rutinas van a ser personales de cada Usuario y las va a poder crear, modificar o borrar segun quiera. Tambien tiene que haber un sistema de recuperacion de contraseña por via mail
