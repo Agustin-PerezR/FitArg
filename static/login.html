@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesión - FitArg</title>
+  <meta name="description" content="Accedé a tu cuenta de FitArg para ver y crear tus rutinas de entrenamiento.">
+  <link rel="stylesheet" href="/static/css/variables.css">
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+  <script src="/static/js/theme.js"></script>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container nav-content">
+      <a href="/" class="brand">
+        <span>🏋️ FitArg</span>
+        <span class="brand-sun">☀️</span>
+        <span class="brand-badge">ARG</span>
+      </a>
+      <div class="flex items-center gap-4">
+        <button id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Cambiar modo de color">
+          <span id="theme-icon">🌙</span>
+          <span id="theme-text">Modo Oscuro</span>
+        </button>
+        <a href="/register.html" class="btn btn-primary">Registrarse</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Login Container -->
+  <main class="container flex justify-center items-center" style="min-height: calc(100vh - 160px); padding: var(--spacing-8) var(--spacing-4);">
+    <div class="card" style="width: 100%; max-width: 440px;">
+      <div class="card-header" style="text-align: center;">
+        <h2>Ingresar a FitArg</h2>
+        <p>Bienvenido de nuevo</p>
+      </div>
+
+      <div id="alert-box" style="display: none;" class="alert"></div>
+
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label for="email" class="form-label">Correo electrónico</label>
+          <input type="email" id="email" name="email" class="form-control" placeholder="nombre@ejemplo.com" required>
+        </div>
+
+        <div class="form-group">
+          <div class="flex justify-between items-center">
+            <label for="password" class="form-label">Contraseña</label>
+            <a href="/forgot-password.html" style="font-size: var(--font-size-xs);">¿Olvidaste tu contraseña?</a>
+          </div>
+          <input type="password" id="password" name="password" class="form-control" placeholder="Tu contraseña" required>
+        </div>
+
+        <button type="submit" id="btn-submit-login" class="btn btn-primary" style="width: 100%; margin-top: var(--spacing-4); padding: var(--spacing-3);">
+          Iniciar Sesión
+        </button>
+      </form>
+
+      <div style="margin-top: var(--spacing-6); text-align: center; font-size: var(--font-size-sm); color: var(--text-muted);">
+        ¿Aún no tenés cuenta? <a href="/register.html" style="font-weight: 600;">Registrate gratis</a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const form = document.getElementById('login-form');
+    const alertBox = document.getElementById('alert-box');
+    const submitBtn = document.getElementById('btn-submit-login');
+
+    // Verificar si viene de un registro exitoso
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('registered') === 'true') {
+      alertBox.className = 'alert alert-success';
+      alertBox.textContent = '¡Tu cuenta ha sido creada exitosamente! Podés ingresar ahora.';
+      alertBox.style.display = 'block';
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      alertBox.style.display = 'none';
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      if (!email || !password) {
+        alertBox.className = 'alert alert-danger';
+        alertBox.textContent = 'Por favor completá todos los campos.';
+        alertBox.style.display = 'block';
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Ingresando...';
+
+      try {
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          localStorage.setItem('fitarg_user', JSON.stringify(data.user));
+          localStorage.setItem('fitarg_token', data.token);
+          alertBox.className = 'alert alert-success';
+          alertBox.textContent = `¡Hola, ${data.user.name}! Redirigiendo a tus rutinas...`;
+          alertBox.style.display = 'block';
+          setTimeout(() => {
+            window.location.href = '/routines.html';
+          }, 1000);
+        } else {
+          alertBox.className = 'alert alert-danger';
+          alertBox.textContent = (data.errors && data.errors.join(' ')) || data.error || 'Credenciales inválidas.';
+          alertBox.style.display = 'block';
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Iniciar Sesión';
+        }
+      } catch (err) {
+        alertBox.className = 'alert alert-danger';
+        alertBox.textContent = 'Error de conexión con el servidor.';
+        alertBox.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Iniciar Sesión';
+      }
+    });
+  </script>
+</body>
+</html>
