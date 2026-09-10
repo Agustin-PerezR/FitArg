@@ -1,6 +1,6 @@
 # Plan de Requerimientos — FitArg
 
-_Generado automáticamente el 2026-09-10T14:06:06.480Z — no editar a mano, se sobreescribe en cada publicación._
+_Generado automáticamente el 2026-09-10T14:06:35.308Z — no editar a mano, se sobreescribe en cada publicación._
 
 Orden sugerido de desarrollo (respeta dependencias entre Requerimientos). Cada fila indica de qué Requerimientos depende, si tiene.
 
@@ -42,7 +42,7 @@ Implementaci�n de pantalla de perfil, endpoint GET /api/profile y actualizaci�
 
 ### RF-01 — Solicitud de recuperación y envío de token por email
 Implementaci�n de pantalla forgot-password.html y endpoint POST /api/auth/forgot-password con generaci�n de token y despacho de email, validado con tests unitarios.
-- Estimado: 3h
+- Estimado: 30h
 
 ### RF-01 — Listado de rutinas personales
 Implementaci�n de pantalla routines.html y endpoint GET /api/routines con filtrado interactivo y aislamiento de datos por usuario, verificado con tests unitarios.
