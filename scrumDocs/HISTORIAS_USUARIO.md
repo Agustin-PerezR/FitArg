@@ -1,6 +1,6 @@
 # Historias de Usuario -- FitArg
 
-_Generado automaticamente el 2026-09-09T15:59:46.165Z -- no editar a mano, se sobreescribe en cada publicacion._
+_Generado automaticamente el 2026-09-10T11:55:48.958Z -- no editar a mano, se sobreescribe en cada publicacion._
 
 ## HU-01: Gestión de Usuarios (ABM de Perfil)
 
