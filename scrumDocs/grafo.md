@@ -1,6 +1,6 @@
 # Grafo de Dependencias -- FitArg
 
-_Generado automaticamente el 2026-09-10T14:06:09.687Z -- no editar a mano, se sobreescribe en cada publicacion._
+_Generado automaticamente el 2026-09-10T14:06:38.473Z -- no editar a mano, se sobreescribe en cada publicacion._
 
 ```mermaid
 graph TD
