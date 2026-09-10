@@ -1,6 +1,6 @@
 # Plan de Requerimientos — FitArg
 
-_Generado automáticamente el 2026-09-10T13:54:54.173Z — no editar a mano, se sobreescribe en cada publicación._
+_Generado automáticamente el 2026-09-10T13:54:55.238Z — no editar a mano, se sobreescribe en cada publicación._
 
 Orden sugerido de desarrollo (respeta dependencias entre Requerimientos). Cada fila indica de qué Requerimientos depende, si tiene.
 
@@ -9,7 +9,7 @@ Orden sugerido de desarrollo (respeta dependencias entre Requerimientos). Cada f
 | 1 | RF-01 | Dockerizar la app para el entorno de pruebas | RO-01 | — | — | testing | dev-fitarg-3 | — | — |
 | 2 | RF-01 | Configurar servicio de correo SMTP | RO-02 | — | — | testing | dev-fitarg-3 | — | — |
 | 3 | RF-01 | Configurar estilos base, modo oscuro y paleta institucional | RO-03 | — | — | testing | dev-fitarg-3 | — | — |
-| 4 | RF-01 | Registro de nuevos usuarios | HU-01 | — | — | Haciendo | dev-fitarg-3 | RF-01 | — |
+| 4 | RF-01 | Registro de nuevos usuarios | HU-01 | — | — | Hecho | dev-fitarg-3 | RF-01 | — |
 | 5 | RF-02 | Visualización y edición de perfil | HU-01 | — | — | testing | dev-fitarg-3 | RF-01 | — |
 | 6 | RF-01 | Solicitud de recuperación y envío de token por email | HU-02 | — | — | testing | dev-fitarg-3 | RF-01, RF-01 | — |
 | 7 | RF-01 | Listado de rutinas personales | HU-03 | — | — | testing | dev-fitarg-3 | RF-01 | — |
