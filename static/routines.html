@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mis Rutinas - FitArg</title>
+  <meta name="description" content="Listado interactivo de rutinas personales en FitArg.">
+  <link rel="stylesheet" href="/static/css/variables.css">
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+  <script src="/static/js/theme.js"></script>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container nav-content">
+      <a href="/" class="brand">
+        <span>🏋️ FitArg</span>
+        <span class="brand-sun">☀️</span>
+        <span class="brand-badge">ARG</span>
+      </a>
+      <div class="flex items-center gap-4">
+        <button id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Cambiar modo de color">
+          <span id="theme-icon">🌙</span>
+          <span id="theme-text">Modo Oscuro</span>
+        </button>
+        <a href="/profile.html" class="btn btn-outline" id="nav-profile-link">Mi Perfil</a>
+        <button id="btn-logout" class="btn btn-outline">Cerrar Sesión</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contenido Principal -->
+  <main class="container" style="padding-top: var(--spacing-8); padding-bottom: var(--spacing-10);">
+    <div class="flex justify-between items-center" style="margin-bottom: var(--spacing-6); flex-wrap: wrap; gap: var(--spacing-4);">
+      <div>
+        <h1 style="margin-bottom: var(--spacing-1);">Mis Rutinas de Entrenamiento</h1>
+        <p id="welcome-msg">Gestioná tus planes de ejercicio diarios y semanales</p>
+      </div>
+      <a href="/routine-editor.html" class="btn btn-primary" style="padding: var(--spacing-3) var(--spacing-6);">
+        + Nueva Rutina
+      </a>
+    </div>
+
+    <!-- Barra de Búsqueda y Filtro -->
+    <div class="card" style="margin-bottom: var(--spacing-6); padding: var(--spacing-4);">
+      <div class="flex gap-4 items-center">
+        <input type="text" id="search-input" class="form-control" placeholder="🔍 Buscar rutina por nombre..." style="margin-bottom: 0;">
+      </div>
+    </div>
+
+    <div id="alert-box" style="display: none;" class="alert"></div>
+
+    <!-- Grid de Rutinas -->
+    <div id="routines-grid" class="grid grid-cols-3 gap-6">
+      <!-- Se carga dinámicamente -->
+    </div>
+
+    <!-- Estado Vacío -->
+    <div id="empty-state" class="card" style="display: none; text-align: center; padding: var(--spacing-10);">
+      <div style="font-size: 3rem; margin-bottom: var(--spacing-3);">🏋️‍♂️</div>
+      <h2>Todavía no creaste ninguna rutina</h2>
+      <p style="margin-bottom: var(--spacing-6); max-width: 480px; margin-left: auto; margin-right: auto;">
+        Comenzá armando tu primer plan de ejercicios especificando series, repeticiones y cargas.
+      </p>
+      <a href="/routine-editor.html" class="btn btn-primary" style="padding: var(--spacing-3) var(--spacing-6);">
+        Crear mi Primera Rutina
+      </a>
+    </div>
+  </main>
+
+  <script>
+    const userJson = localStorage.getItem('fitarg_user');
+    if (!userJson) {
+      window.location.href = '/login.html';
+    }
+    const currentUser = JSON.parse(userJson || '{}');
+    document.getElementById('welcome-msg').textContent = `Hola ${currentUser.name}, gestioná tus planes de ejercicio`;
+
+    const routinesGrid = document.getElementById('routines-grid');
+    const emptyState = document.getElementById('empty-state');
+    const searchInput = document.getElementById('search-input');
+    const alertBox = document.getElementById('alert-box');
+    const logoutBtn = document.getElementById('btn-logout');
+
+    let allRoutines = [];
+
+    function showAlert(type, message) {
+      alertBox.className = `alert alert-${type}`;
+      alertBox.textContent = message;
+      alertBox.style.display = 'block';
+    }
+
+    async function fetchRoutines() {
+      try {
+        const res = await fetch(`/api/routines?user_id=${currentUser.id}`);
+        const data = await res.json();
+        if (res.ok && data.success) {
+          allRoutines = data.routines;
+          renderRoutines(allRoutines);
+        } else {
+          showAlert('danger', data.error || 'Error al cargar las rutinas.');
+        }
+      } catch (err) {
+        showAlert('danger', 'Error de conexión con el servidor.');
+      }
+    }
+
+    function renderRoutines(routines) {
+      routinesGrid.innerHTML = '';
+      if (routines.length === 0) {
+        emptyState.style.display = 'block';
+        routinesGrid.style.display = 'none';
+        return;
+      }
+
+      emptyState.style.display = 'none';
+      routinesGrid.style.display = 'grid';
+
+      routines.forEach(r => {
+        const card = document.createElement('div');
+        card.className = 'card flex flex-col justify-between';
+        
+        let exercisesPreview = '';
+        if (r.exercises && r.exercises.length > 0) {
+          exercisesPreview = r.exercises.slice(0, 3).map(e => `<li>${e.name || 'Ejercicio'} (${e.sets || 3}x${e.reps || 10})</li>`).join('');
+          if (r.exercises.length > 3) {
+            exercisesPreview += `<li style="color: var(--text-muted); font-size: var(--font-size-xs);">+${r.exercises.length - 3} ejercicios más...</li>`;
+          }
+        } else {
+          exercisesPreview = '<li style="color: var(--text-muted);">Sin ejercicios definidos</li>';
+        }
+
+        card.innerHTML = `
+          <div>
+            <div class="card-header flex justify-between items-center">
+              <h3 style="font-size: var(--font-size-lg);">${escapeHtml(r.name)}</h3>
+              <span class="badge badge-primary">${r.exercises_count} ejercicios</span>
+            </div>
+            <p style="margin-bottom: var(--spacing-3); font-size: var(--font-size-sm); min-height: 40px;">
+              ${escapeHtml(r.description || 'Sin descripción.')}
+            </p>
+            <ul style="padding-left: var(--spacing-4); margin-bottom: var(--spacing-4); font-size: var(--font-size-sm);">
+              ${exercisesPreview}
+            </ul>
+          </div>
+          <div class="flex justify-between items-center" style="border-top: 1px solid var(--border-color); padding-top: var(--spacing-3); margin-top: var(--spacing-3);">
+            <a href="/routine-editor.html?id=${r.id}" class="btn btn-outline" style="font-size: var(--font-size-xs); padding: 4px 10px;">
+              ✏️ Editar
+            </a>
+            <button onclick="confirmDeleteRoutine(${r.id}, '${escapeHtml(r.name)}')" class="btn btn-outline" style="color: var(--color-danger); border-color: var(--color-danger); font-size: var(--font-size-xs); padding: 4px 10px;">
+              🗑️ Borrar
+            </button>
+          </div>
+        `;
+        routinesGrid.appendChild(card);
+      });
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      const filtered = allRoutines.filter(r => 
+        r.name.toLowerCase().includes(query) || 
+        (r.description && r.description.toLowerCase().includes(query))
+      );
+      renderRoutines(filtered);
+    });
+
+    async function confirmDeleteRoutine(id, name) {
+      if (confirm(`¿Estás seguro de que querés eliminar la rutina "${name}"?`)) {
+        try {
+          const res = await fetch('/api/routines/delete', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ routine_id: id, user_id: currentUser.id })
+          });
+          const data = await res.json();
+          if (res.ok && data.success) {
+            showAlert('success', 'Rutina eliminada correctamente.');
+            fetchRoutines();
+          } else {
+            showAlert('danger', data.error || 'Error al eliminar rutina.');
+          }
+        } catch (err) {
+          showAlert('danger', 'Error de conexión.');
+        }
+      }
+    }
+
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('fitarg_user');
+      localStorage.removeItem('fitarg_token');
+      window.location.href = '/login.html';
+    });
+
+    fetchRoutines();
+  </script>
+</body>
+</html>

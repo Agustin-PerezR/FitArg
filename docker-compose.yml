@@ -1,0 +1,23 @@
+services:
+  fitarg-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fitarg_app
+    ports:
+      - "8088:8000"
+    environment:
+      - FITARG_DB_PATH=/app/data/fitarg.db
+      - SMTP_HOST=smtp.gmail.com
+      - SMTP_PORT=587
+      - SMTP_USER=notificaciones@fitarg.com.ar
+      - SMTP_PASSWORD=
+      - SMTP_FROM=FitArg <notificaciones@fitarg.com.ar>
+      - SMTP_USE_TLS=true
+    volumes:
+      - fitarg_data:/app/data
+    restart: unless-stopped
+
+volumes:
+  fitarg_data:
+    driver: local
