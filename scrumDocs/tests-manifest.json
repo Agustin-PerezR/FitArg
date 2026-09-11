@@ -1,0 +1,200 @@
+{
+  "tests": [
+    {
+      "requirementCode": "RF-01",
+      "title": "Registro de usuario con datos válidos",
+      "type": "Integración",
+      "preconditions": "Sistema activo y base de datos inicializada",
+      "description": "Envía una solicitud POST al endpoint /api/auth/register con datos completos de usuario y contraseña segura.",
+      "expectedResult": "Devuelve HTTP 201 con el objeto del usuario registrado e id asignado.",
+      "steps": [
+        {
+          "name": "registro",
+          "method": "POST",
+          "url": "{{baseUrl}}/api/auth/register",
+          "body": "{\"name\":\"Usuario Test QA\",\"email\":\"qa_user_{{now}}@test.com\",\"password\":\"SecretPassword123!\"}",
+          "expectedStatus": 201
+        }
+      ]
+    },
+    {
+      "requirementCode": "RF-02",
+      "title": "Visualización y edición de perfil de usuario",
+      "type": "Integración",
+      "preconditions": "Usuario registrado previamente en el sistema",
+      "description": "Consulta la información del perfil vía GET /api/profile y posteriormente actualiza los datos personales vía POST /api/profile/update.",
+      "expectedResult": "Devuelve HTTP 200 en la consulta y confirmación de actualización de datos.",
+      "steps": [
+        {
+          "name": "obtener_perfil",
+          "method": "GET",
+          "url": "{{baseUrl}}/api/profile?user_id=1",
+          "expectedStatus": 200
+        },
+        {
+          "name": "actualizar_perfil",
+          "method": "POST",
+          "url": "{{baseUrl}}/api/profile/update",
+          "body": "{\"user_id\":1,\"name\":\"Nombre Actualizado QA\"}",
+          "expectedStatus": 200
+        }
+      ]
+    },
+    {
+      "requirementCode": "RF-03",
+      "title": "Baja lógica de cuenta de usuario con contraseña",
+      "type": "Integración",
+      "preconditions": "Cuenta de usuario activa en la aplicación",
+      "description": "Envía solicitud de desactivación de cuenta vía POST /api/profile/deactivate confirmando con la contraseña actual.",
+      "expectedResult": "Devuelve HTTP 200 confirmando la desactivación de la cuenta.",
+      "steps": [
+        {
+          "name": "desactivar_cuenta",
+          "method": "POST",
+          "url": "{{baseUrl}}/api/profile/deactivate",
+          "body": "{\"user_id\":1,\"password\":\"Password123!\"}",
+          "expectedStatus": 200
+        }
+      ]
+    },
+    {
+      "requirementCode": "RF-01",
+      "title": "Solicitud de recuperación de contraseña por email",
+      "type": "Integración",
+      "preconditions": "Dirección de correo electrónico existente en el sistema",
+      "description": "Solicita un token de recuperación vía POST /api/auth/forgot-password enviando la dirección de correo registrada.",
+      "expectedResult": "Devuelve HTTP 200 indicando el envío del enlace de recuperación.",
+      "steps": [
+        {
+          "name": "solicitar_recuperacion",
+          "method": "POST",
+          "url": "{{baseUrl}}/api/auth/forgot-password",
+          "body": "{\"email\":\"qa_e2e_test@fitarg.local\"}",
+          "expectedStatus": 200
+        }
+      ]
+    },
+    {
+      "requirementCode": "RF-02",
+      "title": "Restablecimiento de contraseña mediante token de recuperación",
+      "type": "Integración",
+      "preconditions": "Token de recuperación emitido para el usuario",
+      "description": "Valida el token mediante GET /api/auth/validate-reset-token y establece una nueva contraseña mediante POST /api/auth/reset-password.",
+      "expectedResult": "Devuelve respuesta adecuada de validación y restablecimiento de contraseña.",
+      "steps": [
+        {
+          "name": "validar_token",
+          "method": "GET",
+          "url": "{{baseUrl}}/api/auth/validate-reset-token?token=token_prueba",
+          "expectedStatus": 400
+        },
+        {
+          "name": "resetear_password",
+          "method": "POST",
+          "url": "{{baseUrl}}/api/auth/reset-password",
+          "body": "{\"token\":\"token_prueba\",\"new_password\":\"NuevaPassword123!\"}",
+          "expectedStatus": 400
+        }
+      ]
+    },
+    {
+      "requirementCode": "RF-01",
+      "title": "Consulta de listado de rutinas personales de usuario",
+      "type": "Integración",
+      "preconditions": "Usuario autenticado con rutinas asignadas",
+      "description": "Obtiene la lista interactiva de rutinas personales llamando a GET /api/routines?user_id=1.",
+      "expectedResult": "Devuelve HTTP 200 con la colección de rutinas del usuario.",
+      "steps": [
+        {
+          "name": "obtener_rutinas",
+          "method": "GET",
+          "url": "{{baseUrl}}/api/routines?user_id=1",
+          "expectedStatus": 200
+        }
+      ]
+    },
+    {
+      "requirementCode": "RF-02",
+      "title": "Alta y edición de rutina de entrenamiento",
+      "type": "Integración",
+      "preconditions": "Formulario de rutina completo con ejercicios",
+      "description": "Crea o modifica una rutina vía POST /api/routines/save enviando nombre, descripción y colección de ejercicios.",
+      "expectedResult": "Devuelve HTTP 201 con los datos de la rutina guardada.",
+      "steps": [
+        {
+          "name": "guardar_rutina",
+          "method": "POST",
+          "url": "{{baseUrl}}/api/routines/save",
+          "body": "{\"user_id\":1,\"name\":\"Rutina Fuerza QA\",\"description\":\"Rutina de prueba integrativa\",\"exercises\":[{\"name\":\"Sentadilla\",\"series\":4,\"reps\":10,\"weight\":80}]}",
+          "expectedStatus": 201
+        }
+      ]
+    },
+    {
+      "requirementCode": "RF-03",
+      "title": "Eliminación de rutina personal",
+      "type": "Integración",
+      "preconditions": "Rutina de entrenamiento existente",
+      "description": "Ejecuta el borrado de una rutina enviando POST /api/routines/delete con routine_id y user_id.",
+      "expectedResult": "Devuelve HTTP 200 confirmando la eliminación.",
+      "steps": [
+        {
+          "name": "eliminar_rutina",
+          "method": "POST",
+          "url": "{{baseUrl}}/api/routines/delete",
+          "body": "{\"routine_id\":1,\"user_id\":1}",
+          "expectedStatus": 200
+        }
+      ]
+    },
+    {
+      "requirementCode": "RF-01",
+      "title": "Verificación de salud del contenedor Docker",
+      "type": "E2E",
+      "preconditions": "Contenedor Docker ejecutándose en el puerto de pruebas",
+      "description": "Solicita la página raíz del servicio web para verificar que la aplicación esté empaquetada y respondiendo.",
+      "expectedResult": "Devuelve HTTP 200 al acceder a la raíz del servidor.",
+      "steps": [
+        {
+          "name": "verificar_root",
+          "method": "GET",
+          "url": "{{baseUrl}}/",
+          "expectedStatus": 200
+        }
+      ]
+    },
+    {
+      "requirementCode": "RF-01",
+      "title": "Prueba del servicio SMTP de correo",
+      "type": "Integración",
+      "preconditions": "Servicio SMTP configurado en el servidor",
+      "description": "Verifica que la integración de correo responda correctamente ante una solicitud de token por email.",
+      "expectedResult": "Devuelve HTTP 200 indicando la orquestación del envío de correo.",
+      "steps": [
+        {
+          "name": "probar_smtp",
+          "method": "POST",
+          "url": "{{baseUrl}}/api/auth/forgot-password",
+          "body": "{\"email\":\"qa_e2e_test@fitarg.local\"}",
+          "expectedStatus": 200
+        }
+      ]
+    },
+    {
+      "requirementCode": "RF-01",
+      "title": "Carga de recursos estáticos de estilos institucionales",
+      "type": "E2E",
+      "preconditions": "Servidor de archivos estáticos activo",
+      "description": "Solicita la hoja de estilos CSS base institucional /static/css/base.css.",
+      "expectedResult": "Devuelve HTTP 200 con el contenido de la hoja de estilos.",
+      "steps": [
+        {
+          "name": "cargar_css",
+          "method": "GET",
+          "url": "{{baseUrl}}/static/css/base.css",
+          "expectedStatus": 200
+        }
+      ]
+    }
+  ]
+}

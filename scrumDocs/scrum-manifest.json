@@ -1,6 +1,40 @@
 {
   "apiUrl": "https://scrum.misitiowebpersonal.com.ar",
   "projectId": "PROJ-1788959979360",
-  "lastSyncAt": null,
-  "mappings": []
+  "lastSyncAt": "2026-09-11T09:39:00.000Z",
+  "mappings": {
+    "REQ-1788962591125": {
+      "testIds": ["TEST-1789041655166"]
+    },
+    "REQ-1788962599160": {
+      "testIds": ["TEST-1789041655356"]
+    },
+    "REQ-1788962657708": {
+      "testIds": ["TEST-1789041655523"]
+    },
+    "REQ-1788962657905": {
+      "testIds": ["TEST-1789041655710"]
+    },
+    "REQ-1788962658008": {
+      "testIds": ["TEST-1789041655855"]
+    },
+    "REQ-1788962658133": {
+      "testIds": ["TEST-1789041656070"]
+    },
+    "REQ-1788962658244": {
+      "testIds": ["TEST-1789041656239"]
+    },
+    "REQ-1788962658342": {
+      "testIds": ["TEST-1789041656426"]
+    },
+    "REQ-1788962846188": {
+      "testIds": ["TEST-1789041656622"]
+    },
+    "REQ-1788962858900": {
+      "testIds": ["TEST-1789041656805"]
+    },
+    "REQ-1788962859059": {
+      "testIds": ["TEST-1789041656973"]
+    }
+  }
 }
