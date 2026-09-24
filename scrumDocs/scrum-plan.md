@@ -1,6 +1,6 @@
 # Plan de Requerimientos — FitArg
 
-_Generado automáticamente el 2026-09-11T13:57:45.788Z — no editar a mano, se sobreescribe en cada publicación._
+_Generado automáticamente el 2026-09-24T19:24:35.492Z — no editar a mano, se sobreescribe en cada publicación._
 
 Orden sugerido de desarrollo (respeta dependencias entre Requerimientos). Cada fila indica de qué Requerimientos depende, si tiene.
 
